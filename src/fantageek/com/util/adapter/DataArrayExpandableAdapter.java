@@ -1,4 +1,4 @@
-package fantageek.com.util.android.adapter;
+package fantageek.com.util.adapter;
 
 import android.widget.BaseExpandableListAdapter;
 

@@ -1,4 +1,4 @@
-package fantageek.com.util.android;
+package fantageek.com.util;
 
 import java.util.ArrayList;
 import java.util.List;
