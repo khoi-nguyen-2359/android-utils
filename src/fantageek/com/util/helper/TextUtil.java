@@ -1,4 +1,4 @@
-package fantageek.com.util;
+package fantageek.com.util.helper;
 
 import java.util.ArrayList;
 import java.util.List;

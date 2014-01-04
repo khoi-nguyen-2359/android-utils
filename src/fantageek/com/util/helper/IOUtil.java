@@ -1,4 +1,4 @@
-package fantageek.com.util;
+package fantageek.com.util.helper;
 
 import java.io.IOException;
 import java.io.InputStream;

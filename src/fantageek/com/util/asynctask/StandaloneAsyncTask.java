@@ -16,21 +16,25 @@ import android.os.AsyncTask;
  * 
  */
 @SuppressWarnings("rawtypes")
-public abstract class StandaloneAsyncTask extends AsyncTask {
-	public static interface ExecutingListener {
-		void onPostExecute();
+public abstract class StandaloneAsyncTask<Params, Progress, Result> extends AsyncTask<Params, Progress, Result> {
+	public static interface ExecutingListener<Params, Progress, Result> {
+		void onPostExecute(Result result);
 		void onPreExecute();
 	}
 	
 	protected WeakReference<ExecutingListener> executingListener = null;
 	
+	public StandaloneAsyncTask(ExecutingListener<Params, Progress, Result> listener) {
+		setExecutingListener(listener);
+	}
+	
 	@SuppressWarnings("unchecked")
 	@Override
-	protected void onPostExecute(Object result) {
+	protected void onPostExecute(Result result) {
 		super.onPostExecute(result);
 		
 		if (isListenerAvailable())
-			getExecutingListener().onPostExecute();
+			getExecutingListener().onPostExecute(result);
 	}
 
 	@Override
