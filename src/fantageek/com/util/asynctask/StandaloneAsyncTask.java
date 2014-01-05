@@ -15,20 +15,18 @@ import android.os.AsyncTask;
  * @author anhkhoi
  * 
  */
-@SuppressWarnings("rawtypes")
 public abstract class StandaloneAsyncTask<Params, Progress, Result> extends AsyncTask<Params, Progress, Result> {
 	public static interface ExecutingListener<Params, Progress, Result> {
 		void onPostExecute(Result result);
 		void onPreExecute();
 	}
 	
-	protected WeakReference<ExecutingListener> executingListener = null;
+	protected WeakReference<ExecutingListener<Params, Progress, Result>> executingListener = null;
 	
 	public StandaloneAsyncTask(ExecutingListener<Params, Progress, Result> listener) {
 		setExecutingListener(listener);
 	}
 	
-	@SuppressWarnings("unchecked")
 	@Override
 	protected void onPostExecute(Result result) {
 		super.onPostExecute(result);
@@ -45,22 +43,15 @@ public abstract class StandaloneAsyncTask<Params, Progress, Result> extends Asyn
 			getExecutingListener().onPreExecute();
 	}
 	
-	@Override
-	protected void onCancelled() {
-		super.onCancelled();
-		
-		executingListener = null;
-	}
-	
 	protected boolean isListenerAvailable() {
 		return executingListener.get() != null;
 	}
 	
-	protected ExecutingListener getExecutingListener() {
+	protected ExecutingListener<Params, Progress, Result> getExecutingListener() {
 		return executingListener.get();
 	}
 
-	public void setExecutingListener(ExecutingListener executingListener) {
-		this.executingListener = new WeakReference<StandaloneAsyncTask.ExecutingListener>(executingListener);
+	public void setExecutingListener(ExecutingListener<Params, Progress, Result> executingListener) {
+		this.executingListener = new WeakReference<StandaloneAsyncTask.ExecutingListener<Params, Progress, Result>>(executingListener);
 	}
 }
