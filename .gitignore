@@ -5,4 +5,4 @@ local.properties
 .settings/
 obj/
 .DS_Store
-
+project.properties
