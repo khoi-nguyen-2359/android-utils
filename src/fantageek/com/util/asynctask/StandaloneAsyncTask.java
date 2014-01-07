@@ -19,6 +19,7 @@ public abstract class StandaloneAsyncTask<Params, Progress, Result> extends Asyn
 	public static interface ExecutingListener<Params, Progress, Result> {
 		void onPostExecute(Result result);
 		void onPreExecute();
+		void onBackground(Params... params);
 	}
 	
 	protected WeakReference<ExecutingListener<Params, Progress, Result>> executingListener = null;
@@ -33,6 +34,13 @@ public abstract class StandaloneAsyncTask<Params, Progress, Result> extends Asyn
 		
 		if (isListenerAvailable())
 			getExecutingListener().onPostExecute(result);
+	}
+	
+	@Override
+	protected Result doInBackground(Params... params) {
+	    if (isListenerAvailable())
+	        getExecutingListener().onBackground(params);
+	    return null;
 	}
 
 	@Override
