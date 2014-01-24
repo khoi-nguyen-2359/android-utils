@@ -6,6 +6,14 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 
 public final class GUIUtil {
+    public static AlertDialog buildAlert(Context context, int titleId, int messageId, String buttonPositive,
+            OnClickListener positiveClick, String buttonNegative, OnClickListener negativeClick, boolean isCancelable) {
+        String title = context.getString(titleId);
+        String message = context.getString(messageId);
+        return buildAlert(context, title, message, buttonPositive, positiveClick, buttonNegative, negativeClick,
+                isCancelable);
+    }
+
     public static AlertDialog buildAlert(Context context, String title, String message, String buttonPositive,
             OnClickListener positiveClick, String buttonNegative, OnClickListener negativeClick, boolean isCancelable) {
         AlertDialog alert = new AlertDialog.Builder(context).create();
@@ -41,10 +49,10 @@ public final class GUIUtil {
                     }
                 };
             }
-            
+
             alert.setButton(DialogInterface.BUTTON_NEGATIVE, buttonNegative, negativeClick);
         }
-        
+
         return alert;
     }
 }
