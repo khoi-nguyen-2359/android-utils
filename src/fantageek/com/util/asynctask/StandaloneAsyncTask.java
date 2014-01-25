@@ -10,56 +10,66 @@ import android.os.AsyncTask;
  * finish general jobs. <br/>
  * It is implemented by allowing to pass in listeners for pre/post/... execute
  * listener.<br/>
- * To extend this class right, child class must explicitly call super methods like onPost/onPreExecute ...
+ * To extend this class right, child class must explicitly call super methods
+ * like onPost/onPreExecute ...
  * 
  * @author anhkhoi
  * 
  */
 public abstract class StandaloneAsyncTask<Params, Progress, Result> extends AsyncTask<Params, Progress, Result> {
-	public static interface ExecutingListener<Params, Progress, Result> {
-		void onPostExecute(Result result);
-		void onPreExecute();
-		void onBackground(Params... params);
-	}
-	
-	protected WeakReference<ExecutingListener<Params, Progress, Result>> executingListener = null;
-	
-	public StandaloneAsyncTask(ExecutingListener<Params, Progress, Result> listener) {
-		setExecutingListener(listener);
-	}
-	
-	@Override
-	protected void onPostExecute(Result result) {
-		super.onPostExecute(result);
-		
-		if (isListenerAvailable())
-			getExecutingListener().onPostExecute(result);
-	}
-	
-	@Override
-	protected Result doInBackground(Params... params) {
-	    if (isListenerAvailable())
-	        getExecutingListener().onBackground(params);
-	    return null;
-	}
+    public static interface ExecutingListener<Params, Progress, Result> {
+        void onPreExecute();
 
-	@Override
-	protected void onPreExecute() {
-		super.onPreExecute();
-		
-		if (isListenerAvailable())
-			getExecutingListener().onPreExecute();
-	}
-	
-	protected boolean isListenerAvailable() {
-		return executingListener.get() != null;
-	}
-	
-	protected ExecutingListener<Params, Progress, Result> getExecutingListener() {
-		return executingListener.get();
-	}
+        void onPostExecute(Result result);
 
-	public void setExecutingListener(ExecutingListener<Params, Progress, Result> executingListener) {
-		this.executingListener = new WeakReference<StandaloneAsyncTask.ExecutingListener<Params, Progress, Result>>(executingListener);
-	}
+        void onProgressUpdate(Progress... values);
+    }
+
+    protected WeakReference<ExecutingListener<Params, Progress, Result>> executingListener = null;
+
+    public StandaloneAsyncTask(ExecutingListener<Params, Progress, Result> listener) {
+        setExecutingListener(listener);
+    }
+
+    @Override
+    protected void onPostExecute(Result result) {
+        super.onPostExecute(result);
+
+        if (isListenerAvailable())
+            getExecutingListener().onPostExecute(result);
+    }
+
+    @Override
+    protected Result doInBackground(Params... params) {
+        return null;
+    }
+
+    @Override
+    protected void onPreExecute() {
+        super.onPreExecute();
+
+        if (isListenerAvailable())
+            getExecutingListener().onPreExecute();
+    }
+
+    @Override
+    protected void onProgressUpdate(Progress... values) {
+        super.onProgressUpdate(values);
+
+        if (isListenerAvailable())
+            executingListener.get().onProgressUpdate(values);
+    }
+
+    protected boolean isListenerAvailable() {
+        return executingListener.get() != null;
+    }
+
+    protected ExecutingListener<Params, Progress, Result> getExecutingListener() {
+        return executingListener.get();
+    }
+
+    public void setExecutingListener(ExecutingListener<Params, Progress, Result> executingListener) {
+        this.executingListener = new WeakReference<StandaloneAsyncTask.ExecutingListener<Params, Progress, Result>>(
+                executingListener);
+    }
 }
