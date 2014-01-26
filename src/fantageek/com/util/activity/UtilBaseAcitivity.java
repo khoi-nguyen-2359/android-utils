@@ -1,10 +1,10 @@
 package fantageek.com.util.activity;
 
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 
-public class UtilBaseAcitivity extends FragmentActivity {
+public class UtilBaseAcitivity extends ActionBarActivity {
     public static final String KEY_CONTENT_VIEW_RES_ID = "KEY_CONTENT_VIEW_RES_ID";
 
     protected int resIdContentView;
@@ -21,8 +21,12 @@ public class UtilBaseAcitivity extends FragmentActivity {
             setContentView(contentView);
         
         initViews();
+        initActionBar();
     }
     
+    protected void initActionBar() {
+    }
+
     protected void initViews() {
     }
 
