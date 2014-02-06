@@ -4,6 +4,10 @@ import java.util.HashMap;
 import java.util.Iterator;
 
 public class DbUtil {
+    
+    public static boolean isInvalidId(Long id) {
+        return id == null || id <= 0;
+    }
 	
 	/**
 	 * Make string list of arguments for select sql
