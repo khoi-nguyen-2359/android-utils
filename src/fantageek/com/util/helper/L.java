@@ -26,22 +26,22 @@ public final class L {
             TAG = tag;
     }
 
-    public static void d(String f, Object... strings) {
-        L.d(TAG, f, strings);
+    public static void dd(String format, Object... strings) {
+        L.d(TAG, format, strings);
     }
 
-    public static void d(String s) {
+    public static void dd(String s) {
         L.d(TAG, s);
     }
 
-    public static void d(Object o) {
+    public static void dd(Object o) {
         L.d(TAG, o);
     }
 
-    public static void d(String t, String f, Object... strings) {
+    public static void d(String tag, String format, Object... strings) {
         if (enable == false)
             return;
-        Log.d(t, String.format(f, strings));
+        Log.d(tag, String.format(format, strings));
     }
 
     public static void d(String t, String s) {

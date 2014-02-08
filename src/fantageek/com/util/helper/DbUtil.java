@@ -5,7 +5,7 @@ import java.util.Iterator;
 
 public class DbUtil {
     
-    public static boolean isInvalidId(Long id) {
+    public static boolean isInvalidId(Integer id) {
         return id == null || id <= 0;
     }
 	
