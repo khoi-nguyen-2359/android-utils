@@ -5,7 +5,7 @@ import java.util.Iterator;
 
 public class DbUtil {
     
-    public static boolean isInvalidId(Integer id) {
+    public static boolean isInvalidId(Long id) {
         return id == null || id <= 0;
     }
 	
@@ -33,37 +33,4 @@ public class DbUtil {
 		return argList;
 	}
 	
-	/**
-	 * Make projection string array
-	 * @param objs
-	 * @return
-	 */
-	public static String[] projs(String... objs) {
-        int len;
-        if (objs == null || (len = objs.length) == 0)
-            return null;
-
-        String[] projs = new String[len];
-        for (int i = 0; i < len; ++i)
-            projs[i] = objs[i];
-
-        return projs;
-    }
-
-	/**
-	 * Make arguments string array
-	 * @param objs
-	 * @return
-	 */
-    public static final String[] args(Object... objs) {
-        int len;
-        if (objs == null || (len = objs.length) == 0)
-            return null;
-
-        String[] args = new String[len];
-        for (int i = 0; i < len; ++i)
-            args[i] = String.valueOf(objs[i]);
-
-        return args;
-    }
 }
