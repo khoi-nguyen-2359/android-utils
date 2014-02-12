@@ -1,10 +1,10 @@
-package fantageek.com.util.fragment;
+package fantageek.com.util.adapter;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
 
-public class BaseFragmentPagerAdapter extends FragmentPagerAdapter {
+public class BaseFragmentPagerAdapter extends FragmentStatePagerAdapter {
 
     private Fragment[] arrFragment;
 
