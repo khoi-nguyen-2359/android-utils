@@ -5,8 +5,12 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
-public final class IOUtil {
+public final class JavaUtil {
 	
 	/**
 	 * Convert input stream to string. UTF-8 is used as default encoding.<br/>
@@ -57,4 +61,33 @@ public final class IOUtil {
 		
 		return result;
 	}
+	
+    /**
+     * Check an array is null or having zero length
+     * 
+     * @param array
+     * @return
+     */
+    public static boolean isArrayEmpty(Object... array) {
+        return array == null || array.length == 0;
+    }
+    
+    public static String[] match(String text, Pattern pattern) {
+        String[] list = null;
+        
+        List<String> tempResult = new ArrayList<String>();
+        Matcher matcher = pattern.matcher(text);
+        while (matcher.find())
+            tempResult.add(matcher.group());
+
+        list = new String[tempResult.size()];
+        tempResult.toArray(list);
+        
+        return list;
+    }
+
+    public static String[] match(String text, String regex) {
+        Pattern pattern = Pattern.compile(regex);
+        return match(text, pattern);
+    }
 }

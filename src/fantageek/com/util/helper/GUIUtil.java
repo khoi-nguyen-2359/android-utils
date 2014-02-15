@@ -4,18 +4,31 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.util.DisplayMetrics;
 
 public final class GUIUtil {
-    public static AlertDialog buildAlert(Context context, int titleId, int messageId, String buttonPositive,
-            OnClickListener positiveClick, String buttonNegative, OnClickListener negativeClick, boolean isCancelable) {
-        String title = context.getString(titleId);
-        String message = context.getString(messageId);
-        return buildAlert(context, title, message, buttonPositive, positiveClick, buttonNegative, negativeClick,
-                isCancelable);
+    
+    public static float dpToPx(Context context, float dpNum) {
+        DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
+        float px = dpNum * displayMetrics.density;       
+        return px;
+    }
+    
+    public static int replaceFragment(FragmentActivity fa, int id, Fragment f, int animEnter, int animExit) {
+        FragmentManager fm = fa.getSupportFragmentManager();
+        return fm.beginTransaction().replace(id, f).setCustomAnimations(animEnter, animExit).commit();
     }
 
-    public static AlertDialog buildAlert(Context context, String title, String message, String buttonPositive,
-            OnClickListener positiveClick, String buttonNegative, OnClickListener negativeClick, boolean isCancelable) {
+    public static AlertDialog buildAlert(Context context, int titleId, int messageId, int btnPositiveResId,
+            OnClickListener positiveClick, int btnNegativeResId, OnClickListener negativeClick, boolean isCancelable) {
+        String title = context.getString(titleId);
+        String message = context.getString(messageId);
+        String buttonPositive = context.getString(btnPositiveResId);
+        String buttonNegative = context.getString(btnNegativeResId);
+
         AlertDialog alert = new AlertDialog.Builder(context).create();
         alert.setCancelable(isCancelable);
 
@@ -25,29 +38,26 @@ public final class GUIUtil {
         if (message != null) {
             alert.setMessage(message);
         }
-
         if (buttonPositive == null) {
             buttonPositive = "OK";
         }
+
+        OnClickListener defaultOnclick = new OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        };
+
         if (positiveClick == null) {
-            positiveClick = new OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.dismiss();
-                }
-            };
+            positiveClick = defaultOnclick;
         }
 
         alert.setButton(DialogInterface.BUTTON_POSITIVE, buttonPositive, positiveClick);
 
         if (buttonNegative != null) {
             if (negativeClick == null) {
-                negativeClick = new OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                };
+                negativeClick = defaultOnclick;
             }
 
             alert.setButton(DialogInterface.BUTTON_NEGATIVE, buttonNegative, negativeClick);
