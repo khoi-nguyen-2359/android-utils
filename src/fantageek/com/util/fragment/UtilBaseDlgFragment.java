@@ -1,30 +1,27 @@
 package fantageek.com.util.fragment;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 /**
- * This fragment show loading/waiting view for indeterminate tasks or for hiding
- * the content behind
- * 
  * @author anhkhoi
  * 
  */
-public class UtilBaseFragment extends Fragment {
+public class UtilBaseDlgFragment extends DialogFragment {
 
     public static final String KEY_ROOT_VIEW_RES_ID = "KEY_ROOT_VIEW_RES_ID";
 
-    public static UtilBaseFragment instantiate(int resIdRootView) {
-        UtilBaseFragment f = new UtilBaseFragment();
+    public static UtilBaseDlgFragment instantiate(int resIdRootView) {
+        UtilBaseDlgFragment f = new UtilBaseDlgFragment();
         f.resIdRootView = resIdRootView;
         return f;
     }
 
-    public static UtilBaseFragment instantiate(View rootView) {
-        UtilBaseFragment f = new UtilBaseFragment();
+    public static UtilBaseDlgFragment instantiate(View rootView) {
+        UtilBaseDlgFragment f = new UtilBaseDlgFragment();
         f.rootView = rootView;
         return f;
     }
