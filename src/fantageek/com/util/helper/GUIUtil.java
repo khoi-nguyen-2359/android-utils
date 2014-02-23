@@ -4,19 +4,36 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
+import android.graphics.Point;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.util.DisplayMetrics;
+import android.view.Display;
+import android.view.WindowManager;
 
 public final class GUIUtil {
     
+    public static Point getScreenSize(Context context) {
+        Point size = new Point();
+        
+        WindowManager winMan = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        Display display = winMan.getDefaultDisplay();
+        DisplayMetrics metrics = new DisplayMetrics();
+        display.getMetrics(metrics);
+        
+        size.x = display.getWidth();
+        size.y = display.getHeight();
+        
+        return size;
+    }
+
     public static float dpToPx(Context context, float dpNum) {
         DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
-        float px = dpNum * displayMetrics.density;       
+        float px = dpNum * displayMetrics.density;
         return px;
     }
-    
+
     public static int replaceFragment(FragmentActivity fa, int id, Fragment f, int animEnter, int animExit) {
         FragmentManager fm = fa.getSupportFragmentManager();
         return fm.beginTransaction().replace(id, f).setCustomAnimations(animEnter, animExit).commit();
