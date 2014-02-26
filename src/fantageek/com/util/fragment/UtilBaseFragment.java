@@ -31,6 +31,18 @@ public class UtilBaseFragment extends Fragment {
 
     protected int resIdRootView = -1;
     protected View rootView;
+    
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        
+        if (savedInstanceState != null) {
+            onRestoreState(savedInstanceState);
+        }
+    }
+    
+    protected void onRestoreState(Bundle savedInstanceState) {
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
