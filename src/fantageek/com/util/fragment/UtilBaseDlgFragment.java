@@ -14,28 +14,54 @@ public class UtilBaseDlgFragment extends DialogFragment {
 
     public static final String KEY_ROOT_VIEW_RES_ID = "KEY_ROOT_VIEW_RES_ID";
 
-    public static UtilBaseDlgFragment instantiate(int resIdRootView) {
-        UtilBaseDlgFragment f = new UtilBaseDlgFragment();
-        f.resIdRootView = resIdRootView;
+    public static UtilBaseFragment instantiate(int resIdRootView) {
+        UtilBaseFragment f = new UtilBaseFragment();
+        Bundle args = new Bundle();
+        args.putInt(KEY_ROOT_VIEW_RES_ID, resIdRootView);
+        f.setArguments(args);
         return f;
     }
 
-    public static UtilBaseDlgFragment instantiate(View rootView) {
-        UtilBaseDlgFragment f = new UtilBaseDlgFragment();
+    public static UtilBaseFragment instantiate(View rootView) {
+        UtilBaseFragment f = new UtilBaseFragment();
         f.rootView = rootView;
         return f;
     }
 
-    protected int resIdRootView = -1;
+    private int resIdRootView = 0;
     protected View rootView;
+    
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        
+        if (savedInstanceState != null) {
+            onRestoreState(savedInstanceState);
+        }
+        
+        if (getArguments() != null) {
+            readArguments();
+        }
+    }
+    
+    protected void readArguments() {
+        Bundle args = getArguments();
+        if (args == null)
+            return;
+        
+        resIdRootView = args.getInt(KEY_ROOT_VIEW_RES_ID, 0);
+    }
+
+    protected void onRestoreState(Bundle savedInstanceState) {
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        setupRootView();
+        setupRootView(inflater, container, savedInstanceState);
         // ultilize the using of UtilBaseFragmetn class
         if (rootView == null)
             rootView = inflater.inflate(resIdRootView, container, false);
-        initViews();
+        initChildViews();
         return rootView;
     }
     
@@ -46,9 +72,9 @@ public class UtilBaseDlgFragment extends DialogFragment {
         return rootView.findViewById(id);
     }
 
-    protected void setupRootView() {
+    protected void setupRootView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
     }
 
-    protected void initViews() {
+    protected void initChildViews() {
     }
 }

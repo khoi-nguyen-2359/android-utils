@@ -7,8 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 /**
- * This fragment show loading/waiting view for indeterminate tasks or for hiding
- * the content behind
+ * This fragment show a simple view passed from outside.
  * 
  * @author anhkhoi
  * 
@@ -19,7 +18,9 @@ public class UtilBaseFragment extends Fragment {
 
     public static UtilBaseFragment instantiate(int resIdRootView) {
         UtilBaseFragment f = new UtilBaseFragment();
-        f.resIdRootView = resIdRootView;
+        Bundle args = new Bundle();
+        args.putInt(KEY_ROOT_VIEW_RES_ID, resIdRootView);
+        f.setArguments(args);
         return f;
     }
 
@@ -29,7 +30,7 @@ public class UtilBaseFragment extends Fragment {
         return f;
     }
 
-    protected int resIdRootView = -1;
+    private int resIdRootView = 0;
     protected View rootView;
     
     @Override
@@ -39,18 +40,30 @@ public class UtilBaseFragment extends Fragment {
         if (savedInstanceState != null) {
             onRestoreState(savedInstanceState);
         }
+        
+        if (getArguments() != null) {
+            readArguments();
+        }
     }
     
+    protected void readArguments() {
+        Bundle args = getArguments();
+        if (args == null)
+            return;
+        
+        resIdRootView = args.getInt(KEY_ROOT_VIEW_RES_ID, 0);
+    }
+
     protected void onRestoreState(Bundle savedInstanceState) {
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        setupRootView();
+        setupRootView(inflater, container, savedInstanceState);
         // ultilize the using of UtilBaseFragmetn class
         if (rootView == null)
             rootView = inflater.inflate(resIdRootView, container, false);
-        initViews();
+        initChildViews();
         return rootView;
     }
     
@@ -61,9 +74,9 @@ public class UtilBaseFragment extends Fragment {
         return rootView.findViewById(id);
     }
 
-    protected void setupRootView() {
+    protected void setupRootView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
     }
 
-    protected void initViews() {
+    protected void initChildViews() {
     }
 }
