@@ -1,7 +1,9 @@
 package fantageek.com.util.fragment;
 
+import fantageek.com.util.adapter.TitledFragmentPagerAdapter.TitledFragment;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,7 +12,7 @@ import android.view.ViewGroup;
  * @author anhkhoi
  * 
  */
-public class UtilBaseDlgFragment extends DialogFragment {
+public class UtilBaseDlgFragment extends DialogFragment implements TitledFragment, IUtilFragment {
 
     public static final String KEY_ROOT_VIEW_RES_ID = "KEY_ROOT_VIEW_RES_ID";
 
@@ -40,19 +42,8 @@ public class UtilBaseDlgFragment extends DialogFragment {
         }
         
         if (getArguments() != null) {
-            readArguments();
+            readArguments(getArguments());
         }
-    }
-    
-    protected void readArguments() {
-        Bundle args = getArguments();
-        if (args == null)
-            return;
-        
-        resIdRootView = args.getInt(KEY_ROOT_VIEW_RES_ID, 0);
-    }
-
-    protected void onRestoreState(Bundle savedInstanceState) {
     }
 
     @Override
@@ -65,16 +56,38 @@ public class UtilBaseDlgFragment extends DialogFragment {
         return rootView;
     }
     
-    protected View findViewById(int id) {
+    @Override
+    public void readArguments(Bundle args) {
+        resIdRootView = args.getInt(KEY_ROOT_VIEW_RES_ID, 0);
+    }
+    
+    @Override
+    public View findViewById(int id) {
         if (rootView == null)
             return null;
         
         return rootView.findViewById(id);
     }
 
-    protected void setupRootView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    @Override
+    public String getTitle() {
+        return null;
     }
 
-    protected void initChildViews() {
+    @Override
+    public Fragment getTitledFragment() {
+        return this;
+    }
+
+    @Override
+    public void onRestoreState(Bundle state) {
+    }
+
+    @Override
+    public void setupRootView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    }
+
+    @Override
+    public void initChildViews() {
     }
 }
