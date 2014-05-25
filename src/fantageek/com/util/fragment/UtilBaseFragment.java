@@ -33,20 +33,20 @@ public class UtilBaseFragment extends Fragment implements TitledFragment, IUtilF
 
     private int resIdRootView = 0;
     protected View rootView;
-    
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        
+
         if (savedInstanceState != null) {
             onRestoreState(savedInstanceState);
         }
-        
+
         if (getArguments() != null) {
             readArguments(getArguments());
         }
     }
-    
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         setupRootView(inflater, container, savedInstanceState);
@@ -56,17 +56,17 @@ public class UtilBaseFragment extends Fragment implements TitledFragment, IUtilF
         initChildViews();
         return rootView;
     }
-    
+
     @Override
     public void readArguments(Bundle args) {
         resIdRootView = args.getInt(KEY_ROOT_VIEW_RES_ID, 0);
     }
-    
+
     @Override
     public View findViewById(int id) {
         if (rootView == null)
             return null;
-        
+
         return rootView.findViewById(id);
     }
 
@@ -90,5 +90,16 @@ public class UtilBaseFragment extends Fragment implements TitledFragment, IUtilF
 
     @Override
     public void initChildViews() {
+    }
+
+    @Override
+    public Bundle getOrCreateArguments() {
+        Bundle args = getArguments();
+        if (args == null) {
+            args = new Bundle();
+            setArguments(args);
+        }
+        
+        return args;
     }
 }

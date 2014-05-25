@@ -90,4 +90,15 @@ public class UtilBaseDlgFragment extends DialogFragment implements TitledFragmen
     @Override
     public void initChildViews() {
     }
+    
+    @Override
+    public Bundle getOrCreateArguments() {
+        Bundle args = getArguments();
+        if (args == null) {
+            args = new Bundle();
+            setArguments(args);
+        }
+        
+        return args;
+    }
 }

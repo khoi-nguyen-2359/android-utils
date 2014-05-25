@@ -11,4 +11,5 @@ public interface IUtilFragment {
     View findViewById(int resId);
     void setupRootView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState);
     void initChildViews();
+    Bundle getOrCreateArguments();
 }

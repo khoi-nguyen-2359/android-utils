@@ -2,9 +2,9 @@ package fantageek.com.util.adapter;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
 
-public class TitledFragmentPagerAdapter extends FragmentPagerAdapter {
+public class TitledFragmentPagerAdapter extends FragmentStatePagerAdapter {
     public static interface TitledFragment {
         String getTitle();
         Fragment getTitledFragment();
@@ -14,7 +14,7 @@ public class TitledFragmentPagerAdapter extends FragmentPagerAdapter {
 
     public TitledFragmentPagerAdapter(FragmentManager fm, TitledFragment[] fragments) {
         super(fm);
-        this.arrFragment = fragments;
+        arrFragment = fragments;
         if (arrFragment == null)
             arrFragment = new TitledFragment[0];
     }
