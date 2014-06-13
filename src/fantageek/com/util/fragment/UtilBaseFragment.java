@@ -54,6 +54,7 @@ public class UtilBaseFragment extends Fragment implements TitledFragment, IUtilF
         if (rootView == null)
             rootView = inflater.inflate(resIdRootView, container, false);
         initChildViews();
+        setupData();
         return rootView;
     }
 
@@ -101,5 +102,9 @@ public class UtilBaseFragment extends Fragment implements TitledFragment, IUtilF
         }
         
         return args;
+    }
+
+    @Override
+    public void setupData() {
     }
 }
