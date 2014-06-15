@@ -10,7 +10,7 @@ public interface IUtilFragment {
     void onRestoreState(Bundle state);
     View findViewById(int resId);
     void setupRootView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState);
-    void setupData();
+    void setupData(Bundle state);
     void initChildViews();
     Bundle getOrCreateArguments();
 }

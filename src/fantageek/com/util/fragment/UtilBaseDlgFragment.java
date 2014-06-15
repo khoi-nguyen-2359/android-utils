@@ -53,7 +53,7 @@ public class UtilBaseDlgFragment extends DialogFragment implements TitledFragmen
         if (rootView == null)
             rootView = inflater.inflate(resIdRootView, container, false);
         initChildViews();
-        setupData();
+        setupData(savedInstanceState);
         return rootView;
     }
     
@@ -104,6 +104,6 @@ public class UtilBaseDlgFragment extends DialogFragment implements TitledFragmen
     }
 
     @Override
-    public void setupData() {
+    public void setupData(Bundle savedInstanceState) {
     }
 }
