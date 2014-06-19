@@ -1,8 +1,8 @@
 package fantageek.com.util.adapter;
 
-import android.app.Fragment;
-import android.app.FragmentManager;
-import android.support.v13.app.FragmentStatePagerAdapter;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentStatePagerAdapter;
 
 public class TitledFragmentPagerAdapter extends FragmentStatePagerAdapter {
     public static interface TitledFragment {
