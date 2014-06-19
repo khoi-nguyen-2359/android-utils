@@ -1,9 +1,9 @@
 package fantageek.com.util.activity;
 
+import android.app.Activity;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 
-public class UtilBaseAcitivity extends ActionBarActivity {
+public class UtilBaseAcitivity extends Activity {
 
     @Override
     protected void onCreate(Bundle arg0) {
