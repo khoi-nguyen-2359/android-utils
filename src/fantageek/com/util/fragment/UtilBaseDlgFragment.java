@@ -32,11 +32,9 @@ public class UtilBaseDlgFragment extends DialogFragment implements TitledFragmen
 
     private int resIdRootView = 0;
     protected View rootView;
-    
+
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         if (savedInstanceState != null) {
             onRestoreState(savedInstanceState);
         }
@@ -44,10 +42,7 @@ public class UtilBaseDlgFragment extends DialogFragment implements TitledFragmen
         if (getArguments() != null) {
             readArguments(getArguments());
         }
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        
         setupRootView(inflater, container, savedInstanceState);
         // ultilize the using of UtilBaseFragmetn class
         if (rootView == null)

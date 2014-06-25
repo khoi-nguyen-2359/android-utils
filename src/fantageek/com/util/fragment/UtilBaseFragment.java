@@ -35,9 +35,7 @@ public class UtilBaseFragment extends Fragment implements TitledFragment, IUtilF
     protected View rootView;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         if (savedInstanceState != null) {
             onRestoreState(savedInstanceState);
         }
@@ -45,10 +43,7 @@ public class UtilBaseFragment extends Fragment implements TitledFragment, IUtilF
         if (getArguments() != null) {
             readArguments(getArguments());
         }
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        
         setupRootView(inflater, container, savedInstanceState);
         // ultilize the using of UtilBaseFragmetn class
         if (rootView == null)
