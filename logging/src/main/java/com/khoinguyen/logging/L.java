@@ -22,7 +22,7 @@ public final class L {
         return get(defaultTag);
     }
 
-    public static L get(Class clazz) {
+    public static <T> L get(Class<T> clazz) {
         return get(clazz != null?clazz.getSimpleName():"null");
     }
 

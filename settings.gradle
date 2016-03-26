@@ -1,1 +1,1 @@
-include ':logging', ':textutils', ':typeface', ':recyclerview'
+include ':logging', ':typeface', ':recyclerview', ':sample', ':sample'
