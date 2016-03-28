@@ -14,6 +14,12 @@ public class SimpleDividerItemDec extends ItemDecoration {
     private int orientation;
     private int itemOffset;
 
+    /**
+     *
+     * @param divider
+     * @param orientation use RecyclerView's orientation constants
+     * @param itemOffset This offset is space between an item and a divider or between an item with nothing (start of first item or end of last item or there's no given divider)
+     */
     public SimpleDividerItemDec(Drawable divider, int orientation, int itemOffset) {
         this.mDivider = divider;
         this.orientation = orientation;
@@ -22,20 +28,17 @@ public class SimpleDividerItemDec extends ItemDecoration {
 
     public void getItemOffsets(Rect outRect, View view, RecyclerView parent, State state) {
         int childPosition = parent.getChildAdapterPosition(view);
-        int left = 0;
-        int top = 0;
-        int right = 0;
-        int bottom = 0;
-        if(this.orientation == 1) {
-            bottom = this.itemOffset;
-        } else if(this.orientation == 0) {
-            right = this.itemOffset;
+        int left = 0, top = 0, right = 0, bottom = 0;
+        if(this.orientation == RecyclerView.VERTICAL) {
+            bottom = itemOffset;
+        } else if(this.orientation == RecyclerView.HORIZONTAL) {
+            right = itemOffset;
         }
 
-        if(this.orientation == 1) {
-            top = (this.mDivider != null && childPosition != 0?this.mDivider.getIntrinsicHeight():0) + this.itemOffset;
-        } else if(this.orientation == 0) {
-            left = (this.mDivider != null && childPosition != 0?this.mDivider.getIntrinsicWidth():0) + this.itemOffset;
+        if(this.orientation == RecyclerView.VERTICAL) {
+            top = (this.mDivider != null && childPosition != 0?this.mDivider.getIntrinsicHeight():0) + itemOffset;
+        } else if(this.orientation == RecyclerView.HORIZONTAL) {
+            left = (this.mDivider != null && childPosition != 0?this.mDivider.getIntrinsicWidth():0) + itemOffset;
         }
 
         outRect.set(left, top, right, bottom);
@@ -56,24 +59,28 @@ public class SimpleDividerItemDec extends ItemDecoration {
             for(int i = 0; i < childCount - 1; ++i) {
                 View child = parent.getChildAt(i);
                 LayoutParams params = (LayoutParams)child.getLayoutParams();
-                if(this.orientation != 1) {
-                    if(this.orientation == 0) {
-                        left = child.getRight() + params.rightMargin + this.itemOffset;
-                        right = left + this.mDivider.getIntrinsicWidth();
+                if (orientation == RecyclerView.HORIZONTAL) {
+                    left = child.getRight() + params.rightMargin + itemOffset;
+                    right = left + this.mDivider.getIntrinsicWidth();
+                    top = (originBottom - originTop - mDivider.getIntrinsicHeight()) / 2;
+                    if (top < originTop) {
                         top = originTop;
-                        bottom = this.mDivider.getIntrinsicHeight();
-                        if(bottom <= 0 || bottom > originBottom) {
-                            bottom = originBottom;
-                        }
                     }
-                } else {
-                    left = originLeft;
-                    right = this.mDivider.getIntrinsicWidth();
-                    if(right <= 0 || right > originRight) {
+                    bottom = top + this.mDivider.getIntrinsicHeight();
+                    if (bottom > originBottom) {
+                        bottom = originBottom;
+                    }
+                } else if (orientation == RecyclerView.VERTICAL) {
+                    left = (originRight - originLeft - this.mDivider.getIntrinsicWidth()) / 2;
+                    if (left < originLeft) {
+                        left = originLeft;
+                    }
+                    right = left + this.mDivider.getIntrinsicWidth();
+                    if (right > originRight) {
                         right = originRight;
                     }
 
-                    top = child.getBottom() + params.bottomMargin + this.itemOffset;
+                    top = child.getBottom() + params.bottomMargin + itemOffset;
                     bottom = top + this.mDivider.getIntrinsicHeight();
                 }
 
