@@ -12,7 +12,7 @@ public final class L {
 
     private static LruCache<String, L> getInstances() {
         if(instances == null) {
-            instances = new LruCache(50);
+            instances = new LruCache<>(50);
         }
 
         return instances;
@@ -22,18 +22,14 @@ public final class L {
         return get(defaultTag);
     }
 
-    public static <T> L get(Class<T> clazz) {
-        return get(clazz != null?clazz.getSimpleName():"null");
-    }
-
     public static L get(Object object) {
-        return get(object!=null?object.toString():"null");
+        return get(object==null ? "null" : object.getClass().getSimpleName());
     }
 
     public static L get(String tag) {
         LruCache<String, L> instances = getInstances();
         L l = instances.get(tag);
-        if(l == null) {
+        if (l == null) {
             l = new L(tag);
             instances.put(tag, l);
         }
