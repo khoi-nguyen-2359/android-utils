@@ -31,8 +31,8 @@ public final class L {
     }
 
     public static L get(String tag) {
-        LruCache instances = getInstances();
-        L l = (L)instances.get(tag);
+        LruCache<String, L> instances = getInstances();
+        L l = instances.get(tag);
         if(l == null) {
             l = new L(tag);
             instances.put(tag, l);
@@ -50,8 +50,8 @@ public final class L {
         isClassLoggable = loggable;
     }
 
-    public static void setDefaultTag(String defaultTag) {
-        defaultTag = defaultTag;
+    public static void setDefaultTag(String tag) {
+        defaultTag = tag;
     }
 
     public void d(String format, Object... args) {
