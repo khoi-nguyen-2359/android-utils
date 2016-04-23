@@ -1,0 +1,51 @@
+apply plugin: 'com.android.library'
+
+ext {
+    bintrayRepo = 'maven'
+    bintrayName = 'com.khoinguyen.util:log'
+
+    publishedGroupId = 'com.khoinguyen.util'
+    libraryName = 'Android Log Util'
+    artifact = 'log'
+
+    libraryDescription = 'A wrapper for Android Log'
+
+    siteUrl = 'https://github.com/khoi-nguyen-2359'
+    gitUrl = 'https://gist.github.com/khoi-nguyen-2359/fc1c4e09810d369636cd'
+
+    libraryVersion = '0.1.1'
+
+    developerId = 'akhoi90'
+    developerName = 'Khoi Nguyen'
+    developerEmail = 'akhoi90@gmail.com'
+
+    licenseName = 'The MIT License'
+    licenseUrl = 'https://opensource.org/licenses/MIT'
+    allLicenses = ["MIT"]
+}
+
+android {
+    compileSdkVersion 23
+    buildToolsVersion "24.0.0 rc2"
+
+    defaultConfig {
+        minSdkVersion 9
+        targetSdkVersion 23
+        versionCode 1
+        versionName "1.0"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile 'com.android.support:appcompat-v7:23.3.0'
+}
+
+apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/installv1.gradle'
+apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/bintrayv1.gradle'

@@ -3,7 +3,7 @@ package com.khoinguyen.sample;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import com.khoinguyen.logging.L;
+import com.khoinguyen.util.log.L;
 
 public class MainActivity extends AppCompatActivity {
 
